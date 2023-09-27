@@ -11,7 +11,7 @@ class ProjectApiController extends Controller
 {
     public function index(){
         // $obj = Project::all();
-        $obj = Project::with('giveTech','type')->paginate(11);
+        $obj = Project::with('giveTech','type')->get();
 
         return response()->json([
             'success'=>true,
