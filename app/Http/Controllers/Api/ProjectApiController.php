@@ -10,7 +10,8 @@ use App\Models\Project;
 class ProjectApiController extends Controller
 {
     public function index(){
-        $obj = Project::all();
+        // $obj = Project::all();
+        $obj = Project::with('giveTech','type')->paginate(11);
 
         return response()->json([
             'success'=>true,
