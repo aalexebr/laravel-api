@@ -21,6 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::name('api.')->group(function(){
-    Route::get('projects',[ProjectApiController::class,'index'])->name('index');
-    Route::get('projects{id}',[ProjectApiController::class,'show'])->name('show');
+    // Route::get('projects',[ProjectApiController::class,'index'])->name('index');
+    // Route::get('projects/{project}',[ProjectApiController::class,'show'])->name('show');
+    Route::resource('projects', ProjectApiController::class)->only([
+        'index',
+        'show'
+    ]);
 });

@@ -20,8 +20,8 @@ class ProjectApiController extends Controller
     }
 
     public function show(string $id){
-        $obj = Project::firstOrFail($id);
-
+        $obj = Project::with('giveTech','type')->findOrFail($id);
+        // dd($obj);
         return response()->json([
             'success'=>true,
             'results'=> $obj
