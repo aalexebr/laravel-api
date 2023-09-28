@@ -13,18 +13,34 @@ class ProjectApiController extends Controller
         // $obj = Project::all();
         $obj = Project::with('giveTech','type')->get();
 
-        return response()->json([
-            'success'=>true,
-            'results'=> $obj
-        ]);
+        if($obj){
+            return response()->json([
+                'success'=>true,
+                'results'=> $obj
+            ],200);
+        }
+        else{
+            return response()->json([
+                'success'=>false,
+                'message'=> 'not found'
+            ],404);
+        }
     }
 
     public function show(string $id){
         $obj = Project::with('giveTech','type')->findOrFail($id);
         // dd($obj);
-        return response()->json([
-            'success'=>true,
-            'results'=> $obj
-        ]);
+        if($obj){
+            return response()->json([
+                'success'=>true,
+                'results'=> $obj
+            ],200);
+        }
+        else{
+            return response()->json([
+                'success'=>false,
+                'message'=> 'not found'
+            ],404);
+        }
     }
 }
