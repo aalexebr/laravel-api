@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('main-content')
-    <form action="{{route('admin.project.update',['project'=>$obj->id])}}" method="POST">
+    <form action="{{route('admin.project.update',['project'=>$obj->id])}}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <h3>
@@ -64,6 +64,11 @@
                     {{-- if(in_array($objTechs,$tech->id)) //otheer way round--}}
                 >
             @endforeach
+        </div>
+        <div>
+            <label for="img_path">ADD IMG</label>
+            <input type="file" name="img_path" id="img_path" accept="image/*">
+            <input type="checkbox" name="remove_img" id="">remove
         </div>
         <button type="submit" class="btn btn-success">Update</button>
     </form>

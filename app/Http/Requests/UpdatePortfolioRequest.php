@@ -29,7 +29,9 @@ class UpdatePortfolioRequest extends FormRequest
             'date_start'=>'nullable|date',
             'date_end'=>'nullable|date|after_or_equal:date_start',
             'techs'=>'nullable|array',
-            'techs.*'=>'exists:technologies,id'
+            'techs.*'=>'exists:technologies,id',
+            'img_path' => 'nullable|image|max:5000',
+            'remove_img' => 'nullable'
         ];
     }
 

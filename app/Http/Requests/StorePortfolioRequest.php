@@ -31,7 +31,7 @@ class StorePortfolioRequest extends FormRequest
             'date_end'=>'nullable|date|after_or_equal:date_start',
             'techs'=>'nullable|array',
             'techs.*'=>'exists:technologies,id',
-            'img' => 'nullable|image|max:50000'
+            'img' => 'nullable|image|max:5000'
         ];
     }
 

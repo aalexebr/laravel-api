@@ -46,7 +46,7 @@ class ProjectController extends Controller
             $img_path = Storage::put('images_uploaded',$formData['img_path']);
         }
         
-        // dd($img_path);
+        // dd($formData);
 
         // create new item
         $new = new Project();
@@ -100,13 +100,37 @@ class ProjectController extends Controller
         // $obj = Project::where('id',$id)->firstOrFail();
         $obj = Project::findOrFail($id);
         $formData = $request->all();
+        // img file update
+        $img_path = $obj->img;
+        if(isset($formData['img_path'])){
+            if($obj->img){
+                Storage::delete($obj->img);
+            }
+            $img_path= Storage::put('images_uploaded',$formData['img_path']);
+        }
+        elseif(isset($formData['remove_img'])){
+            if($obj->img){
+                Storage::delete($obj->img);
+            }
+            $img_path = null;
+        }        
+        // saving form data 
         $obj->title = $formData['title'];
         $obj->content = $formData['content'];
         $obj->slug = str()->slug($obj->title);
         $obj->type_id = $formData['typeOf'];
         $obj->start_date = $formData['date_start'];
         $obj->end_date = $formData['date_end'];
+        $obj->img = $img_path;
         $obj->save();
+        // with mass assignment but model must have fillable
+        // $post->update([
+        //     'title' => $formData['title'],
+        //     'slug' => str()->slug($formData['title']),
+        //     'content' => $formData['content'],
+        //     'category_id' => $formData['category_id'],
+        //     'cover_img' => $coverImagePath,
+        // ]);
         if(isset($formData['techs'])){
             $obj->giveTech()->sync($formData['techs']);
         }
