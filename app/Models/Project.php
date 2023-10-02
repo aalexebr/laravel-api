@@ -11,6 +11,23 @@ class Project extends Model
 {
     use HasFactory;
 
+    protected $appends = [
+        'img_path'
+    ];
+    protected  $visible = [];
+    protected $hidden = [
+        'img'
+    ];
+
+    public function getImgPathAttribute(){
+        if($this->img = null){
+            return null;
+        }
+        elseif($this->img != null){
+            return asset('storage/'.$this->img);
+        }
+    }
+
     public function type()
     {
         return $this->belongsTo(Type::class);
